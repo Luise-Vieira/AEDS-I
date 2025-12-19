@@ -35,6 +35,11 @@ void Enfileira(TipoItem x, TipoFila *Fila)
     tamanho++;
 }
 
+int Vazia (TipoFila Fila)
+{
+    return(Fila.Frente==Fila.Tras);
+}
+
 void imprimir(TipoFila Fila)
 {
     int i, aux;
@@ -57,26 +62,58 @@ void imprimir(TipoFila Fila)
 
 
 }
-void procurarelemento(TipoFila *Fila, int codigo)
+void procurarelemento(TipoFila Fila,int codigo)
 {
+    int flag = 0;
+    for(int i=0; i<tamanho; i++)
+    {
+        if(Fila.Item[i].cod == codigo)
+        {
+            printf("Codigo encontrado: %d",codigo);
+            flag = 1;
+        }
+
+    }
+    if(flag==0)
+    {
+        printf("Codigo nao encontrado");
+    }
+
+}
+void desenfileirar(TipoFila *Fila)
+{
+    if(Vazia(*Fila))
+    {
+        printf("Nao foi possivel remover pois a fila esta vazia!");
+    }
+    else
+    {
+        Fila->Item[Fila->Frente-1];
+        Fila->Frente = (Fila->Frente % MaxTam) + 1;
+        tamanho--;
+    }
 
 }
 
+void verificarTamanho(int tamanho)
+{
+    printf("Tamanho da fila: %d", tamanho);
+}
 
 int main()
 {
 
-    int op;
+    int op, codigo;
     do
     {
         printf("\n\nMENU\n\n");
-        printf("Digite a opc„o desejada:\n");
-        printf("0 - Sair\n");
+        printf("Digite a opc√£o desejada:\n");
         printf("1 - Enfileirar\n");
         printf("2 - Imprimir fila\n");
         printf("3 - Procurar elemento na fila\n");
         printf("4 - Desenfileirar\n");
         printf("5 - Verificar o tamanho da fila\n");
+        printf("0 - Sair\n");
         scanf("%d", &op);
 
         switch(op)
@@ -99,8 +136,26 @@ int main()
             break;
         }
         case 3:
+        {
 
+            printf("Digite o codigo que deseja procurar: ");
+            scanf("%d",&codigo);
+            procurarelemento(Fila,codigo);
+            break;
         }
+        case 4:
+        {
+            desenfileirar(&Fila);
+            break;
+        }
+        case 5:
+        {
+            verificarTamanho(tamanho);
+        }
+        }
+        printf("\n");
+        system("pause");
+        system("cls");
     }
     while (op!=0);
 
