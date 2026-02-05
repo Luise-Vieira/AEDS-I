@@ -36,7 +36,7 @@ int desempilha(tipopilha *P, int *item) // int para retornar se deu certo, apena
 {
     if (P->topo == 0)
     {
-        printf("Fila vazia!");
+        printf("Pilha vazia!");
         return 0;
     }
     P->topo--; // desce o topo pq retira o elemento
